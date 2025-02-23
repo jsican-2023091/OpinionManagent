@@ -66,6 +66,19 @@ export const getAll = async(req, res) => {
         const publications = await Publication.find()
         .skip(skip)
         .limit(limit)
+        .populate(
+            {
+                path: 'category',
+                select: 'name -_id'
+            }
+        )
+        .populate(
+            {
+                path: 'author',
+                select: 'name surname -_id'
+            }      
+        )
+
         if(!publications.length === 0){
             return res.send(
                 {
@@ -159,5 +172,63 @@ export const deletePublication = async (req, res) => {
             message: 'General error',
             err
         })
+    }
+}
+
+
+
+//Buscar por title
+export const findbyTitle = async(req, res) => {
+    try {
+        const { title } = req.query
+        if (!title) {
+            return res.status(400).send(
+                {
+                    success: false,
+                    message: 'Title is required for search'
+                }
+            )
+        }
+
+        const publications = await Publication.find({
+            title: { $regex: title, $options: 'i' } // Búsqueda sin distinción de mayúsculas y minúsculas
+        })
+        .populate(
+            { 
+                path: 'category', 
+                select: 'name -_id' 
+            }
+        )
+        .populate(
+            { 
+                path: 'author', 
+                select: 'name surname -_id' 
+
+            }
+        )
+
+        if (!publications.length) {
+            return res.status(404).send(
+                {
+                    success: false,
+                    message: 'No publications found with that title'
+                }
+            )
+        }
+
+        return res.send({
+            success: true,
+            message: 'Publications found',
+            publications
+        })
+    } catch (err) {
+        console.error(err)
+        return res.status(500).send(
+            {
+                success: false,
+                message: 'General error',
+                err
+            }
+        )
     }
 }

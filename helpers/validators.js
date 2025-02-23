@@ -1,6 +1,6 @@
 import { body } from "express-validator"
 import { validateErrors, validateErrorWithoutImg } from './validate.error.js'
-import { existUsername } from "./db.validators"
+import { existEmail, existUsername } from "./db.validators.js"
 
 export const registerValidation = [
     body('name', 'Name cannot be empty')
@@ -15,7 +15,8 @@ export const registerValidation = [
     .custom(existUsername),
     body('email', 'Email cannot be empty')
     .notEmpty()
-    .isEmail(),
+    .isEmail()
+    .custom(existEmail),
 
     validateErrors
 ]
@@ -66,6 +67,28 @@ export const validUpdatedCategory = [
         .isLength({max: 50}),
     body('description', 'Description cannot be empty, and can´t be overcome 50 characters')
         .optional()
-        .isLength({max: 50}),
+        .isLength({max: 100}),
     validateErrorWithoutImg
+]
+
+//publication
+export const validSavePublication = [
+    body('title', 'Title cannot be empty')
+    .notEmpty()
+    .isLength({max:25}),
+    body('content', 'Content cannot be empty')
+    .notEmpty(),
+    body('category','Category cannot be empty')
+    .notEmpty(),
+    body('author', 'Author cannot be empty')
+]
+
+//Comment
+export const validSaveComment = [
+    body('content', 'Content cannot be empty')
+    .notEmpty(),
+    body('author', 'Author cannot be empty')
+    .notEmpty(),
+    body('publicationn', 'Publication cannot be empty')
+    .notEmpty()
 ]

@@ -1,0 +1,682 @@
+{
+	"info": {
+		"_postman_id": "d4d4e744-e6a4-45e9-8026-919c595699ed",
+		"name": "OpinionManager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37951882"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Jeffrey",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Seijas",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "JeffreyS",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "jseijas123@gmaill.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "JeffreyS123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3030/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"postman.setGlobalVariable(\"token\", data.token)\r",
+									" "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userLoggin",
+									"value": "JeffreyS",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "JeffreyS123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3030/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/v1/category/getAll",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"category",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3030/v1/category/delete/67b741494d5048dedb2ded85",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"category",
+								"delete",
+								"67b741494d5048dedb2ded85"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveCategory",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Kinalero",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "text",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3030/v1/category/save",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"category",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCategory",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Graciosos",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3030/v1/category/update/67b7d3275829906d96b509cf",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"category",
+								"update",
+								"67b7d3275829906d96b509cf"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Pendejadas",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3030/v1/user/getAll",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"user",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "surname",
+									"value": "Sican",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3030/v1/user/updated/67b7af9a8b6c518a58667392",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"user",
+								"updated",
+								"67b7af9a8b6c518a58667392"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3030/v1/user/delete/67b7af9a8b6c518a58667392",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"user",
+								"delete",
+								"67b7af9a8b6c518a58667392"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/v1/user/get/67b882639798097174f1d757",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"user",
+								"get",
+								"67b882639798097174f1d757"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Publication",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/v1/publication/getAll",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"publication",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SavePublication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Meessi"
+								},
+								{
+									"key": "content",
+									"value": "Txt"
+								},
+								{
+									"key": "category",
+									"value": "67b87d3fccafd5ff19c3243e"
+								},
+								{
+									"key": "author",
+									"value": "67b882639798097174f1d757"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3030/v1/publication/save",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"publication",
+								"save"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "content",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "author",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePublication",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Kinal",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3030/v1/publication/update/67b7eb60d214e655e07438eb",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"publication",
+								"update",
+								"67b7eb60d214e655e07438eb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePublication",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3030/v1/publication/delete/",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"publication",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindByTitle",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "AAAAaaa",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3030/v1/publication/title?title=AAAAaaa",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"publication",
+								"title"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "AAAAaaa"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/v1/comment/getAll",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"comment",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "content",
+									"value": "Kinalero mas raro",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "67b882639798097174f1d757",
+									"type": "text"
+								},
+								{
+									"key": "publication",
+									"value": "67b889042b7d9cdefaf984d3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3030/v1/comment/save",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"comment",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "content",
+									"value": "Mentira mentira",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3030/v1/comment/update/67b7f6fdd8893b2fd8fc8777",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"comment",
+								"update",
+								"67b7f6fdd8893b2fd8fc8777"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3030/v1/comment/delete/67b899d04c1859478241f4b5",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"v1",
+								"comment",
+								"delete",
+								"67b899d04c1859478241f4b5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TEST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3030/test",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"test"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

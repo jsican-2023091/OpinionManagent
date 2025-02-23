@@ -31,6 +31,19 @@ export const getAll = async(req, res) => {
         const comments = await Comment.find()
         .skip(skip)
         .limit(limit)
+        .populate(
+            {
+                path: 'publication',
+                select: 'title content -_id'
+            }
+        )
+        .populate(
+            {
+                path: 'author',
+                select: 'name surname -_id'
+            }      
+        )
+
         if(comments.length === 0){
             return res.send(
                 {
@@ -124,23 +137,22 @@ export const update = async(req, res) => {
     }
 }
 
-export const deleteComment = async (req, res) => {
+//Eliminar Comentario
+export const deleteComment = async(req, res)=>{
+    const { id } = req.params
+    const { ...data } = req.body
     try {
-        const { id } = req.params
-        const userId = req.user.id // Se asume que el usuario autenticado se encuentra en req.user
-
         const comment = await Comment.findById(id)
-        if (!comment) {
+        if(!comment){
             return res.status(404).send(
                 {
-                success: false,
-                message: 'Comment not found'
+                    success: false,
+                    message: 'Comment not found, not deleted'
                 }
             )
         }
-
-        // Verificar si el usuario autenticado es el autor del comentario
-        if (comment.author.toString() !== userId) {
+        //Verificamos que sea el autor
+        if(comment.author.toString() !== req.user.uid && req.user.role !== 'ADMIN'){
             return res.status(403).send(
                 {
                     success: false,
@@ -148,9 +160,8 @@ export const deleteComment = async (req, res) => {
                 }
             )
         }
-
+        //Eliminar el comentario
         await Comment.findByIdAndDelete(id)
-
         return res.send(
             {
                 success: true,
@@ -161,10 +172,10 @@ export const deleteComment = async (req, res) => {
         console.error(err)
         return res.status(500).send(
             {
-            success: false,
-            message: 'General error',
-            err
+                success: false,
+                message: 'General Error when deleting this Comment',
+                err
             }
-        )   
+        )
     }
 }

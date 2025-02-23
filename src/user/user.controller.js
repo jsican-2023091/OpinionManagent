@@ -72,6 +72,36 @@ export const getAll = async(req, res) => {
     }
 }
 
+//GetOne
+export const getOne = async(req, res) => {
+    try {
+        const id = req.params.id
+        const user = await User.findById(id)
+
+        if(!user) return res.status(404).send(
+            {
+                success: false,
+                message: 'User not found'
+            }
+        )
+        return res.send(
+            {
+                success: true,
+                message: 'User found',
+                user
+            }
+        )
+    } catch (err) {
+        console.error(err)
+        return res.status(500).send(
+            {
+                success: false,
+                message: 'General error',
+                err
+            }
+        )
+    }
+}
 
 //Eliminación de cuenta de usuario
 export const deleteUser = async (req, res) => {

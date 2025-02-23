@@ -1,5 +1,5 @@
  import { Router } from "express"
-import { deleteUser, getAll, updateUser } from "./user.controller.js"
+import { deleteUser, getAll, getOne, updateUser } from "./user.controller.js"
 import { validateJwt } from "../../middleware/validate.jwt.js"
 
  const api = Router()
@@ -28,4 +28,8 @@ import { validateJwt } from "../../middleware/validate.jwt.js"
   deleteUser
  )
 
+ api.get(
+  '/get/:id',
+  getOne
+ )
  export default api
